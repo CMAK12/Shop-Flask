@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit User {% endblock %}
+
+{% block content %}
+    <main class="form-signin login_form">
+        <form method="post">
+        <h1 class="h3 mb-3 fw-normal">Edit User</h1>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="firstname" placeholder="Firstname" value="{{ user.firstname }}" required>
+            <label for="floatingInput">Firstname</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="lastname" value="{{ user.lastname }}" placeholder="Lastname">
+            <label for="floatingInput">Lastname</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="login" value="{{ user.login }}" placeholder="login" required>
+            <label for="floatingInput">Login</label>
+        </div>
+        <br>
+        <div class="form-control">
+            <select id="status" name="admin_status" required>
+                    <option value="1">On</option>
+                    <option value="0" selected>Off</option>
+            </select>
+        </div>
+
+        <br>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Edit User</button>
+        </form>
+    </main>
+{% endblock %}

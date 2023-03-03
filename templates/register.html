@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Register {% endblock %}
+
+{% block content %}
+    <main class="form-signin login_form">
+        <form method="post">
+        <h1 class="h3 mb-3 fw-normal">Please Sign up</h1>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="firstname" placeholder="Firstname" required>
+            <label for="floatingInput">Firstname</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="lastname" placeholder="Lastname">
+            <label for="floatingInput">Lastname</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="floatingInput" name="login" placeholder="login" required>
+            <label for="floatingInput">Login</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" name="confirm_password" placeholder="Confirm Password" required>
+            <label for="floatingPassword">Confirm Password</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Edit User</button>
+        </form>
+    </main>
+{% endblock %}

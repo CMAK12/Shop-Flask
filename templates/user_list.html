@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Users{% endblock %}
+
+{% block content %}
+<div class="row mx-auto">
+	<div class="col-12 col-sm-12 col-md-12 text-center">
+		<table class="table cart-table">
+			<thead class="cart-thead">
+				<tr>
+					<th colspan="4">
+						Users
+					</th>
+				</tr>
+			</thead>
+            {% for user in user %}
+			<tr>
+				<td class="text-left">
+					User ID: {{user.id}}
+					<br>
+					Username: {{user.login}}
+				</td>
+				<td>
+					<a href="{{ url_for('edit_user', user_id=user.id) }}"><i class="material-icons cart-icon">edit</i></a>
+					<a href="{{ url_for('delete_user', user_id=user.id) }}"><i class="material-icons cart-icon">delete</i></a>
+				</td>
+			</tr>
+			{% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

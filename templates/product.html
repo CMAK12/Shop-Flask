@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+        Product
+{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row mt-5">
+            <div class="col-10 mx-auto col-md-6 my-3">
+                <img src="/{{ game.image_url }}">
+            </div>
+        </div>
+    </div>
+    <div class="col-10 mx-auto col-md-6 my-3">
+        <div>
+            <h1 class="product_title">{{ game.name }}</h1>
+            <h5 class="text-info font-italic mb-3">${{ game.price }}</h5>
+            <p>Category: <a href="{{ url_for('category_list', category_id=game.category_id) }}"> {{ game.category_name() }}</p></a>
+            <p>Release Data: {{ game.date }}</p>
+            <p class="product_desc">Product Description</p>
+            <p class="text-justify product_text">
+                {{ game.about_game }} 
+            </p>
+            <a href="{{ url_for('add_cart', game_id=game.id) }}">Add To Cart</a>
+            {% if current_user.admin_status == True %}
+                <a href="{{ url_for('edit_game', product_id=game.id) }}">Edit Game</a>
+                <a href="{{ url_for('delete_product', product_id=game.id) }}">Delete Game</a>
+            {% endif %}
+        </div>
+    </div>
+    <br>
+<div class="container">
+    <div class="row">
+    {% for product in products %}
+        <div class="col-9 mx-auto col-md-6 col-lg-3">
+            <div class="card mb-5 mx-auto">
+                <div class="p-4">
+                    <a href="{{ game.get_url }}">
+                        <img class="card-img-top" src="{{ game.image_url }}" alt="{{ game.name }}" style="width: 256px; height: 318px;">
+                    </a>
+                </div>			
+                <div class="card-footer d-flex justify-content-between" style="background: transparent; border-color: transparent;">
+                    <p class="font-weight-bold mb-0">{{ game.name }}</p>
+                    <h5 class="text-info font-italic mb-0">₴{{ game.price }}</h5>
+                </div>
+            </div>
+        </div>
+	{% endfor %}
+{% endblock %}

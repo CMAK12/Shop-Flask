@@ -1,0 +1,50 @@
+<header class="p-3 text-bg-dark">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="{{ url_for('home') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+        <b>Shop</b>
+      </a>
+      
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="{{ url_for('home') }}" class="nav-link px-2 text-white">Home</a></li>
+        <li>
+          <a class="nav-link text-light dropdown-toggle px-2" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorys</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="{{ url_for('home') }}">All Products</a>
+            {% for categories in categories %}
+            <a class="dropdown-item" href="{{ url_for('category_list', category_id=categories.id) }}">{{ categories.name_filter }}</a>
+            {% endfor %}
+          </div>
+        </li>
+        <li><a href="{{ url_for('about') }}" class="nav-link px-2 text-white">About</a></li>
+        <li class="nav-item">
+          <a class="nav-link text-light text-uppercase font-weight-bold px-3" href="{{ url_for('cart') }}">
+        <i class="material-icons cart-icon md-24">shopping_cart</i>
+      </a>
+    </li>
+      </ul>
+
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+      </form>
+
+      {% if current_user.is_authenticated %}
+        <div class="text-end">
+          Hi, {{ current_user.login }}
+          <a href="{{ url_for('logOut') }}"><button type="button" class="btn btn-warning">Log out</button></a>
+          {% if current_user.admin_status == True %}
+          <a href="{{ url_for('add_game') }}"><button type="button" class="btn btn-success">Add Game</button></a>
+          <a href="{{ url_for('add_category') }}"><button type="button" class="btn btn-success">Add Category</button></a>
+          <a href="{{ url_for('users') }}"><button type="button" class="btn btn-success">Users</button></a>
+          {% endif %}
+        </div>
+      {% else %}
+      <div class="text-end">
+        <a href="{{ url_for('logIn') }}"><button type="button" class="btn btn-outline-light me-2">Log in</button></a>
+        <a href="{{ url_for('signup') }}"><button type="button" class="btn btn-warning">Sign up</button></a>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</header>

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Add New Game {% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        <div class="product_title text-center">
+            <h1>Add New Game</h1>
+        </div>
+        <div class="form-floating normal_width">
+            <input type="text" class="form-control" id="floatingInput" name="name_of_game" placeholder="Name of game" required>
+            <label for="floatingInput">Name of game</label>
+        </div>
+        <br>
+        <div class="form-floating normal_width">
+            <input type="date" class="form-control" id="floatingInput" name="release_date" placeholder="Release Data" required>
+            <label for="floatingInput">Release Date</label>
+        </div>
+        <br>
+        <div class="form-floating normal_width">
+            <input type="number" class="form-control" id="floatingInput" name="price" placeholder="Price" required>
+            <label for="floatingInput">Price</label>
+        </div>
+        <br>
+        <div class="normal_width">
+            <input type="file" class="form-control" id="floatingInput" name="game_image" required>
+        </div>
+        <br>
+        <div class="normal_width form-control">
+            <select id="id_category" name="category" required>
+                {% for categories in filters %}
+                    <option value="{{ categories.id }}">{{ categories.name_filter }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br>
+        <div class="form-floating normal_width">
+            <textarea class="form-control" id="text" name="about_game" placeholder="About Game" required></textarea>
+        </div>
+        <br>
+        <div class="login_form">
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Add Game</button>
+        </div>
+    </form>
+{% endblock %}

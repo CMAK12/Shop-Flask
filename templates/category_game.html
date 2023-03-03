@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto my-2 text-center">
+                <h1 class="product_title font-weight-bold"><b>Our Product</b></h1>
+            </div>
+        </div>
+    </div>
+<div class="container">
+    <div class="row">
+        {% for game in games %}
+        <div class="product-item" style="margin-bottom: 15px;">
+            <a href="{{ url_for('product', category_id=game.category_id , product_id=game.id) }}"><img src="/{{ game.image_url }}" style="height: 351px;"></a>
+            <div class="product-list">
+              <h3>{{ game.name }}</h3>
+                <span class="price">${{ game.price }}</span>
+                <a href="" class="button">Add to Cart</a>
+            </div>
+          </div>
+		{% endfor %}
+		</div>
+	</div>
+{% endblock %}
