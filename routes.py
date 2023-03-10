@@ -1,21 +1,23 @@
 from flask import Flask, render_template, redirect, request, url_for, flash, session
 from flask_login import login_user, logout_user, LoginManager, login_required, current_user
-from models import User, Filters, VideoGame
 from werkzeug.utils import secure_filename
-from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+from config import UPLOAD_FOLDER, SESSION_TYPE, SECRET_KEY, SQLALCHEMY_DATABASE_URI, SQLALCHEMY_TRACK_MODIFICATIONS
+from models import db, User, Filters, VideoGame
+from flask_restful import Api
+import requests
 from os import path
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost:5432/flask_shop'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-SESSION_TYPE = 'redis'
-app.config['UPLOAD_FOLDER'] = 'static/images'
-app.config['SECRET_KEY'] = '1b19f373d29e84b203e96c269c735cec13ba48d279819d0d2a78e511441f'
-db = SQLAlchemy(app)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['SESSION_TYPE'] = SESSION_TYPE
+app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = SQLALCHEMY_TRACK_MODIFICATIONS
+db.init_app(app)
+api = Api(app)
 lm = LoginManager()
 lm.init_app(app)
-
-
 @lm.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -274,7 +276,8 @@ def about():
 @app.context_processor
 def settings():
     categories = Filters.query.all()
-    return {'categories': categories}
+    exchange_rate = requests.get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11').json()[1]
+    return {'categories': categories, 'exchange_rate': exchange_rate}
 
 
 if __name__ == '__main__':
